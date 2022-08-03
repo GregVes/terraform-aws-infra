@@ -28,6 +28,8 @@ steps:
     commands:
       - |
         terraform init
+    depends_on:
+      - clone-repo
 
   - name: terraform-plan
     pull: if-not-exists
@@ -42,6 +44,8 @@ steps:
     commands:
       - |
         terraform plan
+    depends_on:
+      - terraform-init
 
   - name: terraform-apply
     pull: if-not-exists
@@ -56,6 +60,8 @@ steps:
     commands:
       - |
         terraform apply -auto-approve
+    depends_on:
+      - terraform-plan
 
 trigger:
   event:
