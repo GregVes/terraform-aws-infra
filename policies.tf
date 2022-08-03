@@ -1,4 +1,4 @@
-# iam full access policy
+# iam full access
 resource "aws_iam_policy" "iam_full_access" {
   name        = var.groups[0].policy
   path        = "/"
@@ -41,19 +41,18 @@ resource "aws_iam_policy" "iam_full_access" {
   })
 }
 
-# s3 creation/deletion bucket policy
-resource "aws_iam_policy" "s3_creation_perm" {
+# s3 full access
+resource "aws_iam_policy" "s3_full_access" {
   name        = var.groups[1].policy
   path        = "/"
-  description = "A policy allowing creating and deleting s3 buckets"
+  description = "A policy allowing full access on S3 resources"
 
   policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
       {
         Action = [
-          "s3:CreateBucket",
-          "s3:DeleteBucket",
+          "s3:*"
         ]
         Effect   = "Allow"
         Resource = "*"
@@ -65,22 +64,7 @@ resource "aws_iam_policy" "s3_creation_perm" {
             ]
           }
         }
-      },
-      {
-        Action = [
-          "s3:*",
-        ]
-        Effect   = "Allow"
-        Resource = "arn:aws:s3:::gregentoo-terraform-backend/*"
-        Condition = {
-          IpAddress = {
-            "aws:SourceIp" = [
-              "51.83.179.16/32",
-              "51.83.147.42/32"
-            ]
-          }
-        }
-      },
+      }
     ]
   })
 }
@@ -91,6 +75,6 @@ data "aws_iam_policy" "policy" {
   name = each.value.policy
   depends_on = [
     aws_iam_policy.iam_full_access,
-    aws_iam_policy.s3_creation_perm
+    aws_iam_policy.s3_full_access
   ]
 }

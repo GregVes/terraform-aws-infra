@@ -25,7 +25,7 @@ variable "groups" {
     },
     {
       name = "drone-s3"
-      policy = "s3-policy-creation"
+      policy = "s3-policy-full-access"
     }
   ]
 }
