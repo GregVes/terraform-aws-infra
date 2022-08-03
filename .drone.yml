@@ -1,0 +1,39 @@
+---
+kind: pipeline
+type: kubernetes
+name: tf-aws-infra
+
+clone:
+  disable: true
+
+steps:
+  - name: clone-repo
+    pull: if-not-exists
+    image: smarthelios/git:1.0
+    commands:
+      - |
+        git clone https://github.com/GregVes/tf-mod-users.git .
+
+  - name: terraform-init
+    pull: if-not-exists
+    image: hashicorp/terraform:1.2.5
+    environment:
+      AWS_REGION:
+        from_secret: AWS_REGION
+      AWS_ACCESS_KEY_ID:
+        from_secret: AWS_ACCESS_KEY_ID
+      AWS_SECRET_ACCESS_KEY:
+        from_secret: AWS_SECRET_ACCESS_KEY
+    commands:
+      - |
+        terraform init -input=false
+
+trigger:
+  event:
+    exclude:
+      - pull_request
+
+volumes:
+  - name: socket
+    host:
+      path: /var/run/docker.sock
