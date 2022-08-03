@@ -1,0 +1,74 @@
+---
+kind: pipeline
+type: kubernetes
+name: tf-aws-infra
+
+clone:
+  disable: true
+
+steps:
+  - name: clone-repo
+    pull: if-not-exists
+    image: smarthelios/git:1.0
+    commands:
+      - |
+        git clone https://github.com/GregVes/tf-mod-users.git .
+        git checkout $DRONE_COMMIT
+
+  - name: terraform-init
+    pull: if-not-exists
+    image: hashicorp/terraform:1.2.5
+    environment:
+      AWS_REGION:
+        from_secret: AWS_REGION
+      AWS_ACCESS_KEY_ID:
+        from_secret: AWS_ACCESS_KEY_ID
+      AWS_SECRET_ACCESS_KEY:
+        from_secret: AWS_SECRET_ACCESS_KEY
+    commands:
+      - |
+        terraform init
+    depends_on:
+      - clone-repo
+
+  - name: terraform-plan
+    pull: if-not-exists
+    image: hashicorp/terraform:1.2.5
+    environment:
+      AWS_REGION:
+        from_secret: AWS_REGION
+      AWS_ACCESS_KEY_ID:
+        from_secret: AWS_ACCESS_KEY_ID
+      AWS_SECRET_ACCESS_KEY:
+        from_secret: AWS_SECRET_ACCESS_KEY
+    commands:
+      - |
+        terraform plan
+    depends_on:
+      - terraform-init
+
+  - name: terraform-apply
+    pull: if-not-exists
+    image: hashicorp/terraform:1.2.5
+    environment:
+      AWS_REGION:
+        from_secret: AWS_REGION
+      AWS_ACCESS_KEY_ID:
+        from_secret: AWS_ACCESS_KEY_ID
+      AWS_SECRET_ACCESS_KEY:
+        from_secret: AWS_SECRET_ACCESS_KEY
+    commands:
+      - |
+        terraform apply -auto-approve
+    depends_on:
+      - terraform-plan
+
+trigger:
+  event:
+    exclude:
+      - pull_request
+
+volumes:
+  - name: socket
+    host:
+      path: /var/run/docker.sock
