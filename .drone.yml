@@ -26,7 +26,8 @@ steps:
         from_secret: AWS_SECRET_ACCESS_KEY
     commands:
       - |
-        terraform init -input=false
+        #terraform init -input=false
+        ls
 
 trigger:
   event:
