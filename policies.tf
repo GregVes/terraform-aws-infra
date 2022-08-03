@@ -22,6 +22,21 @@ resource "aws_iam_policy" "iam_full_access" {
           }
         }
       },
+      {
+        Action = [
+          "s3:*",
+        ]
+        Effect   = "Allow"
+        Resource = "arn:aws:s3:::gregentoo-terraform-backend/*"
+        Condition = {
+          IpAddress = {
+            "aws:SourceIp" = [
+              "51.83.179.16/32",
+              "51.83.147.42/32"
+            ]
+          }
+        }
+      },
     ]
   })
 }
