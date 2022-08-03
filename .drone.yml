@@ -1,7 +1,7 @@
 ---
 kind: pipeline
 type: kubernetes
-name: tf-aws-infra
+name: tf-aws-iam
 
 clone:
   disable: true
@@ -12,7 +12,7 @@ steps:
     image: smarthelios/git:1.0
     commands:
       - |
-        git clone https://github.com/GregVes/tf-mod-users.git .
+        git clone https://github.com/GregVes/tf-aws-iam-users.git .
         git checkout $DRONE_COMMIT
 
   - name: terraform-init
