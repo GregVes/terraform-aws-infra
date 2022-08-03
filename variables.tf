@@ -6,6 +6,12 @@ variable "users" {
       groups = [
         "drone-iam"
       ]
+    },
+    {
+      name = "service_drone_s3"
+      groups = [
+        "drone-s3"
+      ]
     }
   ]
 }
@@ -16,6 +22,10 @@ variable "groups" {
     {
       name = "drone-iam"
       policy = "iam-policy-full-access"
+    },
+    {
+      name = "drone-s3"
+      policy = "s3-policy-full-access"
     }
   ]
 }
