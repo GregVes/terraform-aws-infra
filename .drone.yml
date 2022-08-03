@@ -27,7 +27,7 @@ steps:
         from_secret: AWS_SECRET_ACCESS_KEY
     commands:
       - |
-        terraform init -input=false
+        terraform init
 
   - name: terraform-plan
     pull: if-not-exists
@@ -41,7 +41,21 @@ steps:
         from_secret: AWS_SECRET_ACCESS_KEY
     commands:
       - |
-        terraform plan -input=false
+        terraform plan
+
+  - name: terraform-apply
+    pull: if-not-exists
+    image: hashicorp/terraform:1.2.5
+    environment:
+      AWS_REGION:
+        from_secret: AWS_REGION
+      AWS_ACCESS_KEY_ID:
+        from_secret: AWS_ACCESS_KEY_ID
+      AWS_SECRET_ACCESS_KEY:
+        from_secret: AWS_SECRET_ACCESS_KEY
+    commands:
+      - |
+        terraform apply -auto-approve
 
 trigger:
   event:
