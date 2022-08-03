@@ -13,6 +13,7 @@ steps:
     commands:
       - |
         git clone https://github.com/GregVes/tf-mod-users.git .
+        git checkout $DRONE_COMMIT
 
   - name: terraform-init
     pull: if-not-exists
@@ -26,8 +27,7 @@ steps:
         from_secret: AWS_SECRET_ACCESS_KEY
     commands:
       - |
-        #terraform init -input=false
-        ls
+        terraform init -input=false
 
 trigger:
   event:
