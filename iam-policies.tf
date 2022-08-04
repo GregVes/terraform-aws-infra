@@ -8,66 +8,32 @@ resource "aws_iam_policy" "drone" {
     Version = "2012-10-17"
     Statement = [
       {
-        Action = [
-          "iam:GetPolicy",
-          "iam:GetGroup",
-          "iam:GetGroupPolicy",
-          "iam:GetUser",
-          "iam:AddUserToGroup",
-          "iam:AttachGroupPolicy",
-          "iam:CreateAccessKey",
-          "iam:CreateGroup",
-          "iam:CreatePolicy",
-          "iam:CreateUser",
-          "iam:DeleteAccessKey",
-          "iam:DeleteGroupPolicy",
-          "iam:DeletePolicy",
-          "iam:DetachGroupPolicy",
-          "iam:PutGroupPolicy",
-          "iam:RemoveUserFromGroup",
-          "iam:UpdateGroup",
-          "iam:UpdateUser",
-        ]
         Effect   = "Allow"
+        Action = var.drone_iam_actions
         Resource = "*"
         Condition = {
           IpAddress = {
-            "aws:SourceIp" = [
-              "51.83.179.16/32",
-              "51.83.147.42/32"
-            ]
+            "aws:SourceIp" = var.drone_cidr_ranges
           }
         }
       },
       {
-        Action = [
-          "s3:ListBucket",
-        ]
+        Action = var.drone_s3_state_bucket_action
         Effect   = "Allow"
-        Resource = "arn:aws:s3:::gregentoo-terraform-backend"
+        Resource = "arn:aws:s3:::${var.state_backend_bucket}"
         Condition = {
           IpAddress = {
-            "aws:SourceIp" = [
-              "51.83.179.16/32",
-              "51.83.147.42/32"
-            ]
+            "aws:SourceIp" = var.drone_cidr_ranges
           }
         }
       },
       {
-        Action = [
-          "s3:GetObject",
-          "s3:PutObject",
-          "s3:DeleteObject",
-        ]
+        Action = var.drone_s3_state_object_actions
         Effect   = "Allow"
-        Resource = "arn:aws:s3:::gregentoo-terraform-backend/tf-aws-infra.tfstate"
+        Resource = "arn:aws:s3:::${var.state_backend_bucket}/${var.state_backend_object}"
         Condition = {
           IpAddress = {
-            "aws:SourceIp" = [
-              "51.83.179.16/32",
-              "51.83.147.42/32"
-            ]
+            "aws:SourceIp" = var.drone_cidr_ranges
           }
         }
       },
