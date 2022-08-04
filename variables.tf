@@ -15,6 +15,7 @@ variable "drone_iam_actions" {
     "iam:GetPolicyVersion",
     "iam:GetUser",
     "iam:ListAccessKeys",
+    "am:ListAttachedGroupPolicies ",
     "iam:ListGroupsForUser",
     "iam:ListPolicies",
     "iam:AddUserToGroup",
