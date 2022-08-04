@@ -12,7 +12,7 @@ steps:
     image: smarthelios/git:1.0
     commands:
       - |
-        git clone https://github.com/GregVes/tf-aws-infra.git .
+        git clone https://github.com/GregVes/terraform-aws-infra.git .
         git checkout $DRONE_COMMIT
 
   - name: terraform-init
