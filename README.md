@@ -1,3 +1,3 @@
-# TF-mod-users
+# Terraform AWS infra
 
-Terraform code for managing AWS IAM users
+Terraform code for managing AWS services

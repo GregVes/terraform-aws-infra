@@ -2,30 +2,17 @@ variable "users" {
   description = "A list of users objects"
   default = [
     {
-      name = "service_drone_iam"
-      groups = [
-        "drone-iam"
-      ]
-    },
-    {
-      name = "service_drone_s3"
-      groups = [
-        "drone-s3"
-      ]
+      name = "service_drone"
+      groups = [ "drone-ci" ]
     }
   ]
 }
 
 variable "groups" {
-  description = "IAM user groups"
   default = [
     {
-      name = "drone-iam"
-      policy = "iam-policy-full-access"
+      name = "drone-ci"
+      policy = "drone-ci-policy"
     },
-    {
-      name = "drone-s3"
-      policy = "s3-policy-full-access"
-    }
   ]
 }

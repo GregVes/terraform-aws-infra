@@ -60,13 +60,13 @@ steps:
     commands:
       - |
         terraform apply -auto-approve
+    when:
+      event:
+        - promote
+      target:
+        - production
     depends_on:
       - terraform-plan
-
-trigger:
-  event:
-    exclude:
-      - pull_request
 
 volumes:
   - name: socket

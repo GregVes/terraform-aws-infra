@@ -2,6 +2,9 @@ resource "aws_iam_user" "user" {
   for_each = { for user in var.users: user.name => user }
 
   name = each.value.name
+  tags = {
+    managed_by = "Terraform"
+  }
 }
 
 resource "aws_iam_access_key" "user_keys" {
