@@ -1,7 +1,7 @@
 ---
 kind: pipeline
 type: kubernetes
-name: tf-aws-iam
+name: terraform-aws-infra
 
 clone:
   disable: true

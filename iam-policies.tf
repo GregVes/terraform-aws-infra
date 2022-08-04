@@ -41,11 +41,27 @@ resource "aws_iam_policy" "drone" {
       },
       {
         Action = [
-          "s3:GetObject",
-          "s3:PutObject",
+          "s3:ListBucket",
         ]
         Effect   = "Allow"
-        Resource = "arn:aws:s3:::gregentoo-terraform-backend/*"
+        Resource = "arn:aws:s3:::gregentoo-terraform-backend"
+        Condition = {
+          IpAddress = {
+            "aws:SourceIp" = [
+              "51.83.179.16/32",
+              "51.83.147.42/32"
+            ]
+          }
+        }
+      },
+      {
+        Action = [
+          "s3:GetObject",
+          "s3:PutObject",
+          "s3:DeleteObject",
+        ]
+        Effect   = "Allow"
+        Resource = "arn:aws:s3:::gregentoo-terraform-backend/tf-aws-infra.tfstate"
         Condition = {
           IpAddress = {
             "aws:SourceIp" = [
