@@ -1,7 +1,7 @@
 terraform {
   backend "s3" {
-    bucket = "gregentoo-terraform-backend"
-    key    = "tf-mod-users.tfstate"
+    bucket = "gregentoo-tf-state-backend"
+    key    = "tf-aws-infra.tfstate"
     region = "eu-central-1"
   }
 
