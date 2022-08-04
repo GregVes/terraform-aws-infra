@@ -55,8 +55,7 @@ variable "drone_s3_state_object_actions" {
 variable "drone_s3_buckets_actions" {
   description = "List actions allowed to Drone on s3"
   default = [
-    "s3:CreateBucket",
-    "s3:ListBucket"
+    "s3:*",
   ]
 }
 
