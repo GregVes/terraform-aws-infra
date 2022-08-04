@@ -51,6 +51,13 @@ variable "drone_s3_state_object_actions" {
   ]
 }
 
+variable "drone_s3_buckets_actions" {
+  description = "List actions allowed to Drone on s3"
+  default = [
+    "s3:CreateBucket"
+  ]
+}
+
 variable "state_backend_bucket" {
   description = "Name of the bucket where terraform state file is located"
   default = "gregentoo-tf-state-backend"
