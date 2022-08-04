@@ -18,6 +18,7 @@ variable "drone_iam_actions" {
     "am:ListAttachedGroupPolicies",
     "iam:ListGroupsForUser",
     "iam:ListPolicies",
+    "iam:ListPolicyVersions",
     "iam:AddUserToGroup",
     "iam:AttachGroupPolicy",
     "iam:CreateAccessKey",
@@ -85,11 +86,4 @@ variable "groups" {
       policy = "drone-ci-policy"
     },
   ]
-}
-
-variable "buckets" {
-    description = "A list of buckets"
-    default = [
-      "synapse-dev-db-backups"
-    ]
 }
