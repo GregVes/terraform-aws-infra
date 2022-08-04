@@ -2,6 +2,10 @@ resource "aws_s3_bucket" "bucket" {
   for_each = toset(var.buckets)
 
   bucket = each.key
+
+  tags = {
+    managed_by = "Terraform"
+  }
 }
 
 resource "aws_s3_bucket_versioning" "bucket_versioning" {
