@@ -68,6 +68,11 @@ steps:
     depends_on:
       - terraform-plan
 
+trigger:
+  event:
+    exclude:
+      - pull_request
+
 volumes:
   - name: socket
     host:
