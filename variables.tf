@@ -18,6 +18,7 @@ variable "drone_iam_actions" {
     "am:ListAttachedGroupPolicies",
     "iam:ListGroupsForUser",
     "iam:ListPolicies",
+    "iam:ListPolicyVersions",
     "iam:AddUserToGroup",
     "iam:AttachGroupPolicy",
     "iam:CreateAccessKey",
