@@ -37,6 +37,16 @@ resource "aws_iam_policy" "drone" {
           }
         }
       },
+      {
+        Action = var.drone_s3_buckets_actions
+        Effect   = "Allow"
+        Resource = "*"
+        Condition = {
+          IpAddress = {
+            "aws:SourceIp" = var.drone_cidr_ranges
+          }
+        }
+      },
     ]
   })
 }

@@ -18,6 +18,7 @@ variable "drone_iam_actions" {
     "am:ListAttachedGroupPolicies",
     "iam:ListGroupsForUser",
     "iam:ListPolicies",
+    "iam:ListPolicyVersions",
     "iam:AddUserToGroup",
     "iam:AttachGroupPolicy",
     "iam:CreateAccessKey",
@@ -48,6 +49,13 @@ variable "drone_s3_state_object_actions" {
     "s3:GetObject",
     "s3:PutObject",
     "s3:DeleteObject",
+  ]
+}
+
+variable "drone_s3_buckets_actions" {
+  description = "List actions allowed to Drone on s3"
+  default = [
+    "s3:*",
   ]
 }
 
