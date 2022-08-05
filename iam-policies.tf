@@ -56,7 +56,6 @@ resource "aws_iam_policy" "synapse_dev" {
   description = "A policy allowing Synapse k8s CronJob to store Synapse db backups to AWS S3"
 
   policy = jsonencode({
-    Sid = "SynapseDevDbBackupPolicy"
     Version = "2012-10-17"
     Statement = [
       {
