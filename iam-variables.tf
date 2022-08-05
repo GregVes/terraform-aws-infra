@@ -43,7 +43,7 @@ variable "drone_s3_state_bucket_action" {
   ]
 }
 
-variable "drone_s3_state_object_actions" {
+variable "s3_object_actions" {
   description = "List action for Terraform backend object"
   default = [
     "s3:GetObject",
@@ -75,6 +75,10 @@ variable "users" {
     {
       name = "service_drone"
       groups = [ "drone-ci" ]
+    },
+    {
+      name = "service_synapse_dev"
+      groups = [ "synapse-dev" ]
     }
   ]
 }
@@ -84,6 +88,10 @@ variable "groups" {
     {
       name = "drone-ci"
       policy = "drone-ci-policy"
+    },
+    {
+      name = "synapse-dev"
+      policy = "synapse-dev-policy"
     },
   ]
 }
