@@ -70,6 +70,9 @@ resource "aws_iam_policy" "synapse_dev" {
       }
     ]
   })
+  depends_on = [
+    aws_iam_group_policy_attachment.group_policy["drone-ci"]
+  ]
 }
 
 # this is needed to reference the policy in aws_iam_group_policy_attachment's arn
